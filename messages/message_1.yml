@@ -1,0 +1,13 @@
+toName: Recipient Name
+toAddress: recipient.name@gmail.com
+fromName: Sender Name
+fromAddress: sender.name@gmail.com
+subject: Message from me
+date: 2015-12-30 15:26:00 GMT+0200
+text: >
+ Hello!
+
+ This is the first message
+
+ Regards,
+ Mr. Sender Name

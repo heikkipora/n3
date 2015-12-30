@@ -139,7 +139,7 @@ MessageStore.prototype.buildMimeMail = function(options){
     
     date = (options.date?new Date(options.date):new Date()).toGMTString();
     
-    mime_boundary = '----bd_n3-lunchhour'+(+new Date())+'----';
+    mime_boundary = '----pop3_mime_boundary'+(+new Date())+'----';
     
     // header
     header = mime.foldLine('From: '+from)+"\r\n"+

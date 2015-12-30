@@ -14,8 +14,9 @@
   "license": "MIT",
   "readmeFilename": "README.md",
   "gitHead": "af50865813bced47779ebce559d408cb4211c8c3",
-  "dependencies":{
+  "dependencies": {
     "iconv": "*",
+    "js-yaml": "^3.4.6",
     "node-markdown": "*"
   }
 }
