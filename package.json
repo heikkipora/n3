@@ -1,8 +1,6 @@
 {
-  "name": "pop3-n3",
-  "version": "0.1.2",
-  "description": "POP3 server for node.js",
-  "main": "n3.js",
+  "private": true,
+  "main": "pop3_server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,8 +13,7 @@
   "readmeFilename": "README.md",
   "gitHead": "af50865813bced47779ebce559d408cb4211c8c3",
   "dependencies": {
-    "iconv": "*",
-    "js-yaml": "^3.4.6",
-    "node-markdown": "*"
+    "iconv": "2.1.11",
+    "js-yaml": "3.4.6"
   }
 }

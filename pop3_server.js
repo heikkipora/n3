@@ -1,4 +1,3 @@
-var markdown = require("node-markdown").Markdown;
 var N3 = require("./n3").N3;
 var MessageStore = require("./messagestore").MessageStore;
 var yaml = require('js-yaml');
