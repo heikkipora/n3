@@ -5,7 +5,6 @@ var mime = require("./mime");
 this.MessageStore = MessageStore;
 
 function MessageStore(user){
-    console.log("MessageStore created");
     this.user = user;
     var curtime = new Date().toLocaleString();
     this.messages = [];
@@ -34,7 +33,7 @@ MessageStore.prototype.addMessage = function(message){
 
 MessageStore.prototype.stat = function(callback){
     callback(null, this.length, this.size);
-}
+};
 
 MessageStore.prototype.list = function(msg, callback){
     var result = [];
@@ -49,7 +48,7 @@ MessageStore.prototype.list = function(msg, callback){
             result.push((i+1)+" "+this.messages[i].size)
     }
     callback(null, result);
-}
+};
 
 MessageStore.prototype.uidl = function(msg, callback){
     var result = [];
@@ -64,14 +63,14 @@ MessageStore.prototype.uidl = function(msg, callback){
             result.push((i+1)+" "+this.messages[i].uid)
     }
     callback(null, result);
-}
+};
 
 MessageStore.prototype.retr = function(msg, callback){
     if(!msg || isNaN(msg) || msg<1 || msg>this.messages.length || 
                                 this.messages[msg-1].deleteFlag)
         return callback(null, false);
     return callback(null, this.buildMimeMail(this.messages[msg-1]));
-}
+};
 
 MessageStore.prototype.dele = function(msg, callback){
     if(!msg || isNaN(msg) || msg<1 || msg>this.messages.length || 
@@ -81,7 +80,7 @@ MessageStore.prototype.dele = function(msg, callback){
     this.length--;
     this.size -= this.messages[msg-1].size;
     return callback(null, true);
-}
+};
 
 MessageStore.prototype.rset = function(){
     for(var i=0, len = this.messages.length; i<len;i++){
@@ -91,7 +90,7 @@ MessageStore.prototype.rset = function(){
             this.size += this.messages[i].size;
         }
     }
-}
+};
 
 MessageStore.prototype.removeDeleted = function(){
     for(var i=this.messages.length-1; i>=0;i--){
@@ -100,7 +99,7 @@ MessageStore.prototype.removeDeleted = function(){
             console.log("Deleted MSG #"+(i+1));
         }
     }
-}
+};
 
 
 /**
@@ -182,4 +181,4 @@ MessageStore.prototype.buildMimeMail = function(options){
     body = '--'+mime_boundary+"\r\n"+ attachments.join("\r\n"+'--'+mime_boundary+"\r\n")+"\r\n"+'--'+mime_boundary+"--\r\n\r\n";
     
     return header + body;
-}
+};

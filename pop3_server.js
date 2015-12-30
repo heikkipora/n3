@@ -1,14 +1,13 @@
-var N3 = require("./n3").N3,
-    MessageStore = require("./messagestore").MessageStore,
-
-    server_name = "fw.node.ee";
-
 var markdown = require("node-markdown").Markdown;
+var N3 = require("./n3").N3;
+var MessageStore = require("./messagestore").MessageStore;
+
+var SERVER_NAME = process.env.SERVER_NAME || "mail.domain.com";
+var SHARED_SECRET = process.env.SHARED_SECRET || "secret";
+var VALID_USER = process.env.USER || "joe";
 
 // runs after the user is successfully authenticated
 MessageStore.prototype.registerHook = function(){
-
-    // Add a new message to the users inbox (MessageStore)
 
     var curtime = new Date().toLocaleString(),
         message = "Tere ÕÜÄÖŠ!\n------------------\n\n"+
@@ -37,31 +36,14 @@ MessageStore.prototype.registerHook = function(){
         text:           message,
         html:           markdown(message)
     });
-}
+};
 
-// Currenlty any user with password "12345" will be authenticated successfully
 function AuthStore(user, auth){
-    var password;
-    if(user){
-        password = 12345;
+    var sharedSecret;
+    if(user === VALID_USER){
+        sharedSecret = SHARED_SECRET;
     }
-    return auth(password);
+    return auth(sharedSecret);
 }
 
-// Setup servers for both port 110 (standard) and 995 (secure)
-
-// listen on standard port 110
-N3.startServer(110, server_name, AuthStore, MessageStore);
-
-// Custom authentication method: FOOBAR <user> <pass>
-N3.extendAUTH("FOOBAR",function(authObj){
-    var params = authObj.params.split(" "),
-        user = params[0],
-        pass = params[1];
-
-    if(!user) // username is not set
-        return "-ERR Authentication error. FOOBAR expects <user> <password>"
-
-    authObj.user = user;
-    return authObj.check(user, pass);
-});
+N3.startServer(1100, SERVER_NAME, AuthStore, MessageStore);
