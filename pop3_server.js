@@ -3,8 +3,8 @@ var N3 = require("./n3").N3;
 var MessageStore = require("./messagestore").MessageStore;
 
 var SERVER_NAME = process.env.SERVER_NAME || "mail.domain.com";
-var SHARED_SECRET = process.env.SHARED_SECRET || "secret";
-var VALID_USER = process.env.USER || "joe";
+var APOP_SECRET = process.env.APOP_SECRET || "secret";
+var APOP_USER = process.env.APOP_USER || "joe";
 
 // runs after the user is successfully authenticated
 MessageStore.prototype.registerHook = function(){
@@ -26,7 +26,7 @@ MessageStore.prototype.registerHook = function(){
                   "    }\n"+
                   "\n\n"+
                   "Parimat,  \nKellamees";
-    
+
     this.addMessage({
         toName:         "Andris Reinman",
         toAddress:      "andris.reinman@gmail.com",
@@ -40,8 +40,8 @@ MessageStore.prototype.registerHook = function(){
 
 function AuthStore(user, auth){
     var sharedSecret;
-    if(user === VALID_USER){
-        sharedSecret = SHARED_SECRET;
+    if(user === APOP_USER){
+        sharedSecret = APOP_SECRET;
     }
     return auth(sharedSecret);
 }
